@@ -12,16 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registers the admin pages.
  */
-class TDS_Admin {
+class OOCAKFS_Admin {
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'register_menu' ) );
-		add_action( 'admin_post_tds_create_slider', array( $this, 'handle_create' ) );
-		add_action( 'admin_post_tds_delete_slider', array( $this, 'handle_delete' ) );
-		add_action( 'admin_post_tds_duplicate_slider', array( $this, 'handle_duplicate' ) );
+		add_action( 'admin_post_oocakfs_create_slider', array( $this, 'handle_create' ) );
+		add_action( 'admin_post_oocakfs_delete_slider', array( $this, 'handle_delete' ) );
+		add_action( 'admin_post_oocakfs_duplicate_slider', array( $this, 'handle_duplicate' ) );
 	}
 
 	/**
@@ -50,7 +50,7 @@ class TDS_Admin {
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only page routing.
 		$slider_id = isset( $_GET['slider'] ) ? (int) $_GET['slider'] : 0;
 
-		if ( $slider_id && TDS_CPT::POST_TYPE === get_post_type( $slider_id ) ) {
+		if ( $slider_id && OOCAKFS_CPT::POST_TYPE === get_post_type( $slider_id ) ) {
 			$this->render_editor( $slider_id );
 			return;
 		}
@@ -108,8 +108,8 @@ class TDS_Admin {
         <p style="margin:0 0 8px;">
             <a href="<?php echo esc_url( $back_url ); ?>">&larr; <?php esc_html_e( 'All Sliders', 'oocak-fullscreen-slider' ); ?></a>
         </p>
-        <div id="tds-root" data-slider-id="<?php echo esc_attr( $slider_id ); ?>"></div>
-        <script type="application/json" id="tds-pages-data">
+        <div id="oocakfs-root" data-slider-id="<?php echo esc_attr( $slider_id ); ?>"></div>
+        <script type="application/json" id="oocakfs-pages-data">
             <?php echo wp_json_encode( $page_list ); ?>
         </script>
     </div>
@@ -122,7 +122,7 @@ class TDS_Admin {
 	private function render_list() {
 		$sliders = get_posts(
 			array(
-				'post_type'      => TDS_CPT::POST_TYPE,
+				'post_type'      => OOCAKFS_CPT::POST_TYPE,
 				'posts_per_page' => -1,
 				'post_status'    => array( 'publish', 'draft' ),
 				'orderby'        => 'date',
@@ -131,8 +131,8 @@ class TDS_Admin {
 		);
 
 		$create_url = wp_nonce_url(
-			admin_url( 'admin-post.php?action=tds_create_slider' ),
-			'tds_create_slider'
+			admin_url( 'admin-post.php?action=oocakfs_create_slider' ),
+			'oocakfs_create_slider'
 		);
 		?>
 		<div class="wrap">
@@ -175,17 +175,17 @@ if ( isset( $_GET['deleted'] ) ) : ?>
 					<?php else : ?>
 						<?php foreach ( $sliders as $slider ) : ?>
 							<?php
-							$slides    = TDS_REST::get_slides( $slider->ID );
+							$slides    = OOCAKFS_REST::get_slides( $slider->ID );
 							$count     = count( $slides );
 							$edit_url  = admin_url( 'admin.php?page=oocak-fullscreen-slider&slider=' . $slider->ID );
 							$shortcode = '[oocak_slider id="' . $slider->ID . '"]';
 							$del_url   = wp_nonce_url(
-								admin_url( 'admin-post.php?action=tds_delete_slider&slider=' . $slider->ID ),
-								'tds_delete_slider_' . $slider->ID
+								admin_url( 'admin-post.php?action=oocakfs_delete_slider&slider=' . $slider->ID ),
+								'oocakfs_delete_slider_' . $slider->ID
 							);
 							$dup_url   = wp_nonce_url(
-								admin_url( 'admin-post.php?action=tds_duplicate_slider&slider=' . $slider->ID ),
-								'tds_duplicate_slider_' . $slider->ID
+								admin_url( 'admin-post.php?action=oocakfs_duplicate_slider&slider=' . $slider->ID ),
+								'oocakfs_duplicate_slider_' . $slider->ID
 							);
 							?>
 							<tr>
@@ -218,11 +218,11 @@ if ( isset( $_GET['deleted'] ) ) : ?>
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_die( esc_html__( 'Not allowed.', 'oocak-fullscreen-slider' ) );
 		}
-		check_admin_referer( 'tds_create_slider' );
+		check_admin_referer( 'oocakfs_create_slider' );
 
 		$post_id = wp_insert_post(
 			array(
-				'post_type'   => TDS_CPT::POST_TYPE,
+				'post_type'   => OOCAKFS_CPT::POST_TYPE,
 				'post_status' => 'publish',
 				'post_title'  => __( 'Untitled Slider', 'oocak-fullscreen-slider' ),
 			),
@@ -250,7 +250,7 @@ if ( isset( $_GET['deleted'] ) ) : ?>
         wp_die( esc_html__( 'Not allowed.', 'oocak-fullscreen-slider' ) );
     }
 
-    check_admin_referer( 'tds_delete_slider_' . $slider_id );
+    check_admin_referer( 'oocakfs_delete_slider_' . $slider_id );
 
     wp_delete_post( $slider_id, true );
 
@@ -268,16 +268,16 @@ if ( isset( $_GET['deleted'] ) ) : ?>
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			wp_die( esc_html__( 'Not allowed.', 'oocak-fullscreen-slider' ) );
 		}
-		check_admin_referer( 'tds_duplicate_slider_' . $slider_id );
+		check_admin_referer( 'oocakfs_duplicate_slider_' . $slider_id );
 
 		$original = get_post( $slider_id );
-		if ( ! $original || TDS_CPT::POST_TYPE !== $original->post_type ) {
+		if ( ! $original || OOCAKFS_CPT::POST_TYPE !== $original->post_type ) {
 			wp_die( esc_html__( 'Slider not found.', 'oocak-fullscreen-slider' ) );
 		}
 
 		$new_id = wp_insert_post(
 			array(
-				'post_type'   => TDS_CPT::POST_TYPE,
+				'post_type'   => OOCAKFS_CPT::POST_TYPE,
 				'post_status' => 'publish',
 				'post_title'  => $original->post_title . ' (Copy)',
 			),
@@ -288,9 +288,9 @@ if ( isset( $_GET['deleted'] ) ) : ?>
 			wp_die( esc_html( $new_id->get_error_message() ) );
 		}
 
-		$slides = get_post_meta( $slider_id, '_tds_slides', true );
+		$slides = get_post_meta( $slider_id, '_oocakfs_slides', true );
 		if ( is_array( $slides ) ) {
-			update_post_meta( $new_id, '_tds_slides', $slides );
+			update_post_meta( $new_id, '_oocakfs_slides', $slides );
 		}
 
 		wp_safe_redirect(

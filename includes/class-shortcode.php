@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Renders the slider on the front end.
  */
-class TDS_Shortcode {
+class OOCAKFS_Shortcode {
 
 	/**
 	 * Constructor.
@@ -41,22 +41,22 @@ class TDS_Shortcode {
 		}
 
 		$post = get_post( $id );
-        if ( ! $post || TDS_CPT::POST_TYPE !== $post->post_type || 'trash' === $post->post_status ) {
+        if ( ! $post || OOCAKFS_CPT::POST_TYPE !== $post->post_type || 'trash' === $post->post_status ) {
             return '';
         }
 
-		$slides = TDS_REST::get_slides( $id );
+		$slides = OOCAKFS_REST::get_slides( $id );
 		if ( empty( $slides ) ) {
 			return '';
 		}
 
-		wp_enqueue_script( 'tds-frontend' );
-		wp_enqueue_style( 'tds-frontend' );
+		wp_enqueue_script( 'oocakfs-frontend' );
+		wp_enqueue_style( 'oocakfs-frontend' );
 
 		ob_start();
 		?>
-		<div id="tds-slider-<?php echo esc_attr( $id ); ?>" class="tds-root"></div>
-		<script type="application/json" id="tds-data-<?php echo esc_attr( $id ); ?>">
+		<div id="oocakfs-slider-<?php echo esc_attr( $id ); ?>" class="oocakfs-root"></div>
+		<script type="application/json" id="oocakfs-data-<?php echo esc_attr( $id ); ?>">
 			<?php echo wp_json_encode( array( 'slides' => $slides ) ); ?>
 		</script>
 		<?php

@@ -19,21 +19,21 @@ export default function SlideEditor({ index, slide, onChange, onRemove }) {
     frame.open();
   };
 
-  const pages = (window.TDS && window.TDS.pages) || [];
+  const pages = (window.OOCAKFS && window.OOCAKFS.pages) || [];
 
   return (
-    <section className="tds-slide-editor">
-      <div className="tds-slide-editor__header">
+    <section className="oocakfs-slide-editor">
+      <div className="oocakfs-slide-editor__header">
         <h2>
           {__("Slide", "topdown-slider")} {index + 1}
         </h2>
-        <button className="tds-btn tds-btn--danger" onClick={onRemove}>
+        <button className="oocakfs-btn oocakfs-btn--danger" onClick={onRemove}>
           {__("Remove", "topdown-slider")}
         </button>
       </div>
 
       <div
-        className="tds-slide-editor__preview"
+        className="oocakfs-slide-editor__preview"
         onClick={pickImage}
         style={
           slide.imageUrl
@@ -42,19 +42,19 @@ export default function SlideEditor({ index, slide, onChange, onRemove }) {
         }
       >
         {!slide.imageUrl && (
-          <span className="tds-slide-editor__preview-empty">
+          <span className="oocakfs-slide-editor__preview-empty">
             {__("Click to choose image", "topdown-slider")}
           </span>
         )}
         {slide.imageUrl && (
-          <div className="tds-slide-editor__preview-overlay">
+          <div className="oocakfs-slide-editor__preview-overlay">
             <h3>{slide.title || __("Slide title", "topdown-slider")}</h3>
             <p>{slide.description || __("Description…", "topdown-slider")}</p>
           </div>
         )}
       </div>
 
-      <div className="tds-slide-editor__fields">
+      <div className="oocakfs-slide-editor__fields">
         <label>
           <span>{__("Nav label", "topdown-slider")}</span>
           <input
@@ -83,7 +83,7 @@ export default function SlideEditor({ index, slide, onChange, onRemove }) {
           />
         </label>
 
-        <label className="tds-toggle-row">
+        <label className="oocakfs-toggle-row">
           <input
             type="checkbox"
             checked={!!slide.buttonEnabled}
@@ -106,7 +106,7 @@ export default function SlideEditor({ index, slide, onChange, onRemove }) {
 
             <label>
               <span>{__("Button link type", "topdown-slider")}</span>
-              <div className="tds-radio-row">
+              <div className="oocakfs-radio-row">
                 <label>
                   <input
                     type="radio"

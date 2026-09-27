@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Registers and enqueues scripts and styles.
  */
-class TDS_Assets {
+class OOCAKFS_Assets {
 
 	/**
 	 * Constructor.
@@ -40,32 +40,32 @@ class TDS_Assets {
 			return;
 		}
 
-		$asset_file = TDS_PATH . 'build/admin.asset.php';
+		$asset_file = OOCAKFS_PATH . 'build/admin.asset.php';
 		if ( ! file_exists( $asset_file ) ) {
 			return;
 		}
 		$asset = require $asset_file;
 
 		wp_enqueue_script(
-			'tds-admin',
-			TDS_URL . 'build/admin.js',
+			'oocakfs-admin',
+			OOCAKFS_URL . 'build/admin.js',
 			$asset['dependencies'],
 			$asset['version'],
 			true
 		);
 
 		wp_enqueue_style(
-			'tds-admin',
-			TDS_URL . 'build/admin.css',
+			'oocakfs-admin',
+			OOCAKFS_URL . 'build/admin.css',
 			array(),
 			$asset['version']
 		);
 
 		wp_localize_script(
-			'tds-admin',
-			'TDS',
+			'oocakfs-admin',
+			'OOCAKFS',
 			array(
-				'restUrl'  => rest_url( 'tds/v1' ),
+				'restUrl'  => rest_url( 'oocakfs/v1' ),
 				'wpRest'   => rest_url( 'wp/v2' ),
 				'nonce'    => wp_create_nonce( 'wp_rest' ),
 				'sliderId' => $slider_id,
@@ -79,23 +79,23 @@ class TDS_Assets {
 	 * Register frontend assets. Enqueued on demand by the shortcode.
 	 */
 	public function register_frontend() {
-		$script_asset = TDS_PATH . 'build/frontend.asset.php';
+		$script_asset = OOCAKFS_PATH . 'build/frontend.asset.php';
 		if ( ! file_exists( $script_asset ) ) {
 			return;
 		}
 		$asset = require $script_asset;
 
 		wp_register_script(
-			'tds-frontend',
-			TDS_URL . 'build/frontend.js',
+			'oocakfs-frontend',
+			OOCAKFS_URL . 'build/frontend.js',
 			$asset['dependencies'],
 			$asset['version'],
 			true
 		);
 
 		wp_register_style(
-			'tds-frontend',
-			TDS_URL . 'build/frontend.css',
+			'oocakfs-frontend',
+			OOCAKFS_URL . 'build/frontend.css',
 			array(),
 			$asset['version']
 		);

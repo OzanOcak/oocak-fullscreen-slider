@@ -12,19 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Main plugin class. Singleton.
  */
-final class TDS_Plugin {
+final class OOCAKFS_Plugin {
 
 	/**
 	 * Singleton instance.
 	 *
-	 * @var TDS_Plugin|null
+	 * @var OOCAKFS_Plugin|null
 	 */
 	private static $instance = null;
 
 	/**
 	 * Get the singleton instance.
 	 *
-	 * @return TDS_Plugin
+	 * @return OOCAKFS_Plugin
 	 */
 	public static function instance() {
 		if ( null === self::$instance ) {
@@ -45,21 +45,21 @@ final class TDS_Plugin {
 	 * Load the class files.
 	 */
 	private function load_dependencies() {
-		require_once TDS_PATH . 'includes/class-cpt.php';
-		require_once TDS_PATH . 'includes/class-rest.php';
-		require_once TDS_PATH . 'includes/class-admin.php';
-		require_once TDS_PATH . 'includes/class-assets.php';
-		require_once TDS_PATH . 'includes/class-shortcode.php';
+		require_once OOCAKFS_PATH . 'includes/class-cpt.php';
+		require_once OOCAKFS_PATH . 'includes/class-rest.php';
+		require_once OOCAKFS_PATH . 'includes/class-admin.php';
+		require_once OOCAKFS_PATH . 'includes/class-assets.php';
+		require_once OOCAKFS_PATH . 'includes/class-shortcode.php';
 	}
 
 	/**
 	 * Instantiate the sub-classes so their hooks register.
 	 */
 	private function register_hooks() {
-		new TDS_CPT();
-		new TDS_REST();
-		new TDS_Admin();
-		new TDS_Assets();
-		new TDS_Shortcode();
+		new OOCAKFS_CPT();
+		new OOCAKFS_REST();
+		new OOCAKFS_Admin();
+		new OOCAKFS_Assets();
+		new OOCAKFS_Shortcode();
 	}
 }

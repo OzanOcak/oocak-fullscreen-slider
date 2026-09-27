@@ -2,15 +2,15 @@ import { createRoot } from "@wordpress/element";
 import App from "./App";
 import "./styles/admin.css";
 
-const root = document.getElementById("tds-root");
+const root = document.getElementById("oocakfs-root");
 if (root) {
   // Read the pages list from the inline JSON script tag.
-  const pagesEl = document.getElementById("tds-pages-data");
-  if (pagesEl && window.TDS) {
+  const pagesEl = document.getElementById("oocakfs-pages-data");
+  if (pagesEl && window.OOCAKFS) {
     try {
-      window.TDS.pages = JSON.parse(pagesEl.textContent);
+      window.OOCAKFS.pages = JSON.parse(pagesEl.textContent);
     } catch (e) {
-      window.TDS.pages = [];
+      window.OOCAKFS.pages = [];
     }
   }
 

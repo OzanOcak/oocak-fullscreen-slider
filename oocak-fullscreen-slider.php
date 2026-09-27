@@ -20,16 +20,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'TDS_VERSION', '0.1.0' );
-define( 'TDS_FILE',    __FILE__ );
-define( 'TDS_PATH',    plugin_dir_path( __FILE__ ) );
-define( 'TDS_URL',     plugin_dir_url( __FILE__ ) );
-define( 'TDS_SLUG',    'oocak-fullscreen-slider' );
+define( 'OOCAKFS_VERSION', '0.1.0' );
+define( 'OOCAKFS_FILE',    __FILE__ );
+define( 'OOCAKFS_PATH',    plugin_dir_path( __FILE__ ) );
+define( 'OOCAKFS_URL',     plugin_dir_url( __FILE__ ) );
+define( 'OOCAKFS_SLUG',    'oocak-fullscreen-slider' );
 
 // Load the main plugin class.
-require_once TDS_PATH . 'includes/class-plugin.php';
+require_once OOCAKFS_PATH . 'includes/class-plugin.php';
 
 // Boot it.
 add_action( 'plugins_loaded', function () {
-	TDS_Plugin::instance();
+	OOCAKFS_Plugin::instance();
 } );

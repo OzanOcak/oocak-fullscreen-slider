@@ -10,14 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Registers the tds_slider custom post type.
+ * Registers the oocakfs_slider custom post type.
  */
-class TDS_CPT {
+class OOCAKFS_CPT {
 
 	/**
 	 * Post type slug.
 	 */
-	const POST_TYPE = 'tds_slider';
+	const POST_TYPE = 'oocakfs_slider';
 
 	/**
 	 * Constructor. Hooks into WordPress.
@@ -49,7 +49,7 @@ class TDS_CPT {
 				'show_ui'               => false,
 				'show_in_menu'          => false,
 				'show_in_rest'          => true,
-				'rest_base'             => 'tds_slider',
+				'rest_base'             => 'oocakfs_slider',
 				'rest_controller_class' => 'WP_REST_Posts_Controller',
 				'supports'              => array( 'title' ),
 				'capability_type'       => 'post',

@@ -10,14 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Registers the tds/v1 REST routes.
+ * Registers the oocakfs/v1 REST routes.
  */
-class TDS_REST {
+class OOCAKFS_REST {
 
 	/**
 	 * REST namespace.
 	 */
-	const NAMESPACE = 'tds/v1';
+	const NAMESPACE = 'oocakfs/v1';
 
 	/**
 	 * Constructor. Hooks into WordPress.
@@ -60,7 +60,7 @@ class TDS_REST {
         return current_user_can( 'edit_posts' );
     }
 
-    if ( TDS_CPT::POST_TYPE !== get_post_type( $slider_id ) ) {
+    if ( OOCAKFS_CPT::POST_TYPE !== get_post_type( $slider_id ) ) {
         return false;
     }
 
@@ -68,7 +68,7 @@ class TDS_REST {
 }
 
 	/**
-	 * GET /tds/v1/slider/{id}
+	 * GET /oocakfs/v1/slider/{id}
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response|WP_Error
@@ -76,9 +76,9 @@ class TDS_REST {
 	public function get_slider( WP_REST_Request $request ) {
 		$id = (int) $request['id'];
 
-		if ( TDS_CPT::POST_TYPE !== get_post_type( $id ) ) {
+		if ( OOCAKFS_CPT::POST_TYPE !== get_post_type( $id ) ) {
 			return new WP_Error(
-				'tds_not_found',
+				'oocakfs_not_found',
 				__( 'Slider not found.', 'oocak-fullscreen-slider' ),
 				array( 'status' => 404 )
 			);
@@ -94,7 +94,7 @@ class TDS_REST {
 	}
 
 	/**
-	 * POST /tds/v1/slider/{id}
+	 * POST /oocakfs/v1/slider/{id}
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response|WP_Error
@@ -104,9 +104,9 @@ class TDS_REST {
 		$slides = $request->get_param( 'slides' );
 		$title  = $request->get_param( 'title' );
 
-		if ( TDS_CPT::POST_TYPE !== get_post_type( $id ) ) {
+		if ( OOCAKFS_CPT::POST_TYPE !== get_post_type( $id ) ) {
 			return new WP_Error(
-				'tds_not_found',
+				'oocakfs_not_found',
 				__( 'Slider not found.', 'oocak-fullscreen-slider' ),
 				array( 'status' => 404 )
 			);
@@ -114,14 +114,14 @@ class TDS_REST {
 
 		if ( ! is_array( $slides ) ) {
 			return new WP_Error(
-				'tds_bad_slides',
+				'oocakfs_bad_slides',
 				__( 'Slides must be an array.', 'oocak-fullscreen-slider' ),
 				array( 'status' => 400 )
 			);
 		}
 
 		$clean = self::sanitize_slides( $slides );
-		update_post_meta( $id, '_tds_slides', $clean );
+		update_post_meta( $id, '_oocakfs_slides', $clean );
 
 		if ( is_string( $title ) && '' !== trim( $title ) ) {
 			wp_update_post(
@@ -147,7 +147,7 @@ class TDS_REST {
 	 * @return array
 	 */
 	public static function get_slides( $id ) {
-		$slides = get_post_meta( $id, '_tds_slides', true );
+		$slides = get_post_meta( $id, '_oocakfs_slides', true );
 		return is_array( $slides ) ? $slides : array();
 	}
 

@@ -42,10 +42,19 @@ To rebuild the compiled assets in the `build/` directory:
 
 1. Upload the plugin files to `/wp-content/plugins/oocak-fullscreen-slider/`, or install through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Go to **Oocak Fullscreen Sliders → Add New Slider**.
-4. Add slides, save.
-5. Copy the shortcode shown in the editor header.
-6. Paste the shortcode into any page or post.
+3. Go to **Oocak Fullscreen Sliders** in the admin sidebar.
+4. Click **Add New Slider** to create a new slider.
+5. The new slider appears in the list — click **Edit** on it to open the slider editor.
+6. In the slider editor, add your slides:
+   - Click **+ Add Slide** in the left sidebar.
+   - Select a slide to edit it.
+   - Pick a **background image** from the media library.
+   - Fill in **title**, **description**, and an optional **button** (text + URL).
+   - Choose the **text position** within the fullscreen slide — top-left, top-right, center, bottom-left, or bottom-right.
+   - Choose optional **text and image animations**.
+   - Repeat for additional slides.
+7. Click **Save Slider**.
+8. Copy the shortcode shown at the top of the editor (e.g. `[oocak_slider id="21"]`) and paste it into any page or post.
 
 == Frequently Asked Questions ==
 
@@ -60,14 +69,6 @@ Copy the shortcode from the editor header — it looks like `[oocak_slider id="5
 = Can I have more than one slider? =
 
 Yes. Create as many sliders as you want, each with its own shortcode.
-
-== Screenshots ==
-
-1. The slider list page
-2. The slide editor with all options
-3. A full-screen slide on the frontend
-4. The mobile slide-in navigation panel
-5. A slide with a call-to-action button
 
 == Changelog ==
 

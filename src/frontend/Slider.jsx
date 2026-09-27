@@ -179,11 +179,11 @@ export default function Slider({ slides }) {
                 <p className="fss-slide__desc">{slide.description}</p>
               )}
 
-              {slide.buttonEnabled && slide.buttonText &&  (
+              {slide.buttonEnabled && slide.buttonText && (
                 <a
                   href={slide.buttonUrl || "#"}
-                  className={`tds-slide__button${
-                    slide.buttonColor ? " tds-slide__button--solid" : ""
+                  className={`oocakfs-slide__button${
+                    slide.buttonColor ? " oocakfs-slide__button--solid" : ""
                   }`}
                   style={
                     slide.buttonColor

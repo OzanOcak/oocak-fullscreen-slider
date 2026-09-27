@@ -12,7 +12,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 // Delete all slider posts and their meta.
 $sliders = get_posts(
 	array(
-		'post_type'      => 'tds_slider',
+		'post_type'      => 'oocakfs_slider',
 		'posts_per_page' => -1,
 		'post_status'    => 'any',
 		'fields'         => 'ids',

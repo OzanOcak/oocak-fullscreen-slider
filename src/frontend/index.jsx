@@ -9,16 +9,16 @@ import "./styles/nav-mobile.css";
 import "./styles/responsive.css";
 import "./styles/accessibility.css";
 
-document.querySelectorAll(".tds-root").forEach((root) => {
-  const id = root.id.replace("tds-slider-", "");
-  const dataEl = document.getElementById(`tds-data-${id}`);
+document.querySelectorAll(".oocakfs-root").forEach((root) => {
+  const id = root.id.replace("oocakfs-slider-", "");
+  const dataEl = document.getElementById(`oocakfs-data-${id}`);
   if (!dataEl) return;
 
   let data;
   try {
     data = JSON.parse(dataEl.textContent);
   } catch (e) {
-    console.error("TDS: bad JSON", e);
+    console.error("OOCAKFS: bad JSON", e);
     return;
   }
 

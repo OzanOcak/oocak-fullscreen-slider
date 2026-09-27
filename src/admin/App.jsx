@@ -3,7 +3,7 @@ import { __ } from "@wordpress/i18n";
 import SlideList from "./components/SlideList";
 import SlideEditor from "./components/SlideEditor";
 
-const { restUrl, nonce, sliderId: initialSliderId } = window.TDS;
+const { restUrl, nonce, sliderId: initialSliderId } = window.OOCAKFS;
 
 export default function App() {
   const [sliderId, setSliderId] = useState(initialSliderId || null);
@@ -82,30 +82,28 @@ export default function App() {
 
   if (!sliderId) {
     return (
-      <div className="tds-loading">
-        {__("Loading…", "topdown-slider")}
-      </div>
+      <div className="oocakfs-loading">{__("Loading…", "topdown-slider")}</div>
     );
   }
 
   const currentSlide = slides[currentIndex];
 
   return (
-    <div className="tds-admin">
-      <header className="tds-header">
+    <div className="oocakfs-admin">
+      <header className="oocakfs-header">
         <input
-          className="tds-title-input"
+          className="oocakfs-title-input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={__("Slider name", "topdown-slider")}
         />
-        <div className="tds-header-actions">
-          <span className="tds-shortcode-hint">
+        <div className="oocakfs-header-actions">
+          <span className="oocakfs-shortcode-hint">
             {__("Shortcode:", "topdown-slider")}{" "}
             <code>{`[oocak_slider id="${sliderId}"]`}</code>
           </span>
           <button
-            className="tds-btn tds-btn--primary"
+            className="oocakfs-btn oocakfs-btn--primary"
             onClick={save}
             disabled={saving}
           >
@@ -117,12 +115,12 @@ export default function App() {
       </header>
 
       {notice && (
-        <div className={`tds-notice tds-notice--${notice.type}`}>
+        <div className={`oocakfs-notice oocakfs-notice--${notice.type}`}>
           {notice.text}
         </div>
       )}
 
-      <div className="tds-editor-layout">
+      <div className="oocakfs-editor-layout">
         <SlideList
           slides={slides}
           currentIndex={currentIndex}
@@ -138,11 +136,8 @@ export default function App() {
             onRemove={() => removeSlide(currentSlide.id)}
           />
         ) : (
-          <div className="tds-editor-empty">
-            {__(
-              "No slides yet. Click + Add to create one.",
-              "topdown-slider",
-            )}
+          <div className="oocakfs-editor-empty">
+            {__("No slides yet. Click + Add to create one.", "topdown-slider")}
           </div>
         )}
       </div>
